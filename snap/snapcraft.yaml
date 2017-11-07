@@ -1,0 +1,48 @@
+name: auryo
+version: 1.4.2
+summary: Auryo
+description: |
+  A beautiful soundcloud desktop app http://auryo.com
+grade: stable
+confinement: strict
+
+parts:
+  auryo:
+    plugin: dump
+    source: https://github.com/Superjo149/auryo/releases/download/v1.4.2/Auryo_1.4.2_amd64.deb
+    after:
+      - desktop-gtk2
+    stage-packages:
+      - libasound2
+      - libc++1
+      - libgconf2-4
+      - libnotify4
+      - libnspr4
+      - libnss3
+      - libpulse0
+      - libxss1
+      - libxtst6
+
+apps:
+  auryo:
+    command: bin/desktop-launch $SNAP/opt/Auryo/auryo
+    environment:
+      TMPDIR: $XDG_RUNTIME_DIR
+    plugs:
+      - browser-support
+      - gsettings
+      - home
+      - mount-observe
+      - network
+      - opengl
+      - pulseaudio
+      - unity7
+      - x11
+
+slots:
+  auryo-player-mpris:
+    interface: mpris
+    name: auryo-player
+  auryo-mpris:
+    interface: mpris
+    name: auryo
